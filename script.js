@@ -1,100 +1,73 @@
+// Function for changing colors
+const ChangingClass = (element, add, remove) => {
+    element.classList.add(add);
+    element.classList.remove(remove);
+};
 
-
-//functions
+// Functions
 let verifyUserName = () => {
     let inputForUsername = document.getElementById('inputForUsername');
- 
     let paragraphForUsername_empty = document.getElementById('paragraphForUsername_empty');
     let paragraphForUsername_capitalAlphabets = document.getElementById('paragraphForUsername_capitalAlphabets');
     let paragraphForUsername_freeSpaces = document.getElementById('paragraphForUsername_freeSpaces');
-
-
     let username = inputForUsername.value;
-    if (username === "") {
-        paragraphForUsername_empty.classList.add('dotRed');
-        paragraphForUsername_empty.classList.remove('dotGreen');
-        paragraphForUsername_capitalAlphabets.classList.add('dotRed');
-        paragraphForUsername_capitalAlphabets.classList.remove('dotGreen');
-        paragraphForUsername_freeSpaces.classList.add('dotRed');
-        paragraphForUsername_freeSpaces.classList.remove('dotGreen');
-    }
-    else if (username.match(/[A-Z]/) && username.includes(" ")) {
-        paragraphForUsername_empty.classList.add('dotRed');
-        paragraphForUsername_empty.classList.remove('dotGreen');
-        paragraphForUsername_capitalAlphabets.classList.add('dotRed');
-        paragraphForUsername_capitalAlphabets.classList.remove('dotGreen');
-        paragraphForUsername_empty.innerText = 'Username is not correct';
-        paragraphForUsername_empty.classList.add('dotRed');
-        paragraphForUsername_empty.classList.remove('dotGreen');
-    }
-    else if (username.match(/[A-Z]/)) {
-        paragraphForUsername_empty.innerText = 'Username is not correct';
-        paragraphForUsername_empty.classList.add('dotRed');
-        paragraphForUsername_empty.classList.remove('dotGreen');
-        paragraphForUsername_capitalAlphabets.classList.add('dotRed');
-        paragraphForUsername_freeSpaces.classList.add('dotGreen');
-        paragraphForUsername_freeSpaces.classList.remove('dotRed');
-    }
-    else if (username.match(/[-]/)) {
-        paragraphForUsername_empty.style.display='none';
-        paragraphForUsername_capitalAlphabets.innerHTML='Minus is not allowed';
-        paragraphForUsername_capitalAlphabets.classList.add('dotRed');
-        paragraphForUsername_freeSpaces.style.display='none';
-    }
-    else if (username.includes(" ")) {
-        paragraphForUsername_empty.innerText = 'Username is not correct';
-        paragraphForUsername_empty.classList.add('dotRed');
-        paragraphForUsername_empty.classList.remove('dotGreen');
-        paragraphForUsername_capitalAlphabets.classList.add('dotGreen');
-        paragraphForUsername_capitalAlphabets.classList.remove('dotRed');
-        paragraphForUsername_freeSpaces.classList.add('dotRed');
-        paragraphForUsername_freeSpaces.classList.remove('dotGreen');
-    }
-    else {
-        paragraphForUsername_freeSpaces.classList.add('dotGreen');
-        paragraphForUsername_freeSpaces.classList.remove('dotRed');
-        paragraphForUsername_capitalAlphabets.classList.add('dotGreen');
-        paragraphForUsername_capitalAlphabets.classList.remove('dotRed');
-        paragraphForUsername_empty.innerText = 'Username is correct';
-        paragraphForUsername_empty.classList.add('dotGreen');
-        paragraphForUsername_empty.classList.remove('dotRed');
-}
-}
 
+    if (username === "") {
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotRed', 'dotGreen');
+    } else if (username.match(/[A-Z]/) && username.includes(" ")) {
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        paragraphForUsername_empty.innerText = 'Username is not correct';
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotRed', 'dotGreen');
+    } else if (username.match(/[A-Z]/)) {
+        paragraphForUsername_empty.innerText = 'Username is not correct';
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotGreen', 'dotRed');
+    } else if (username.match(/[-]/)) {
+        paragraphForUsername_empty.style.display = 'none';
+        paragraphForUsername_capitalAlphabets.innerHTML = 'Minus is not allowed';
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        paragraphForUsername_freeSpaces.style.display = 'none';
+    } else if (username.includes(" ")) {
+        paragraphForUsername_empty.innerText = 'Username is not correct';
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotGreen', 'dotRed');
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotRed', 'dotGreen');
+    } else {
+        ChangingClass(paragraphForUsername_empty, 'dotGreen', 'dotRed');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotGreen', 'dotRed');
+        paragraphForUsername_empty.innerText = 'Username is correct';
+        ChangingClass(paragraphForUsername_empty, 'dotGreen', 'dotRed');
+    }
+};
 
 let verifyEmail = () => {
     let inputForEmail = document.getElementById('inputForEmail');
-
     let paragraphForEmail_Empty = document.getElementById('paragraphForEmail_Empty');
-let paragraphForEmail_validation = document.getElementById('paragraphForEmail_validation');
-
-
+    let paragraphForEmail_validation = document.getElementById('paragraphForEmail_validation');
     const email = inputForEmail.value;
     const emailCheck = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]/; 
-    
+
     if (email === "") {
-        paragraphForEmail_Empty.classList.add('dotRed');
-        paragraphForEmail_Empty.classList.remove('dotGreen');
+        ChangingClass(paragraphForEmail_Empty, 'dotRed', 'dotGreen');
     } else {
         paragraphForEmail_Empty.style.display = 'none';
     }
 
     if (!emailCheck.test(email)) {
-        paragraphForEmail_validation.classList.add('dotRed');
-        paragraphForEmail_validation.classList.remove('dotGreen');
+        ChangingClass(paragraphForEmail_validation, 'dotRed', 'dotGreen');
     } else {
-        paragraphForEmail_validation.innerText = 'Email is valid'
-        paragraphForEmail_validation.classList.add('dotGreen');
-        paragraphForEmail_validation.classList.remove('dotRed');
+        paragraphForEmail_validation.innerText = 'Email is valid';
+        ChangingClass(paragraphForEmail_validation, 'dotGreen', 'dotRed');
     }
-}
-
+};
 
 let verifyPassword = () => {
     let inputForPassword = document.getElementById('inputForPassword');
-
-
-    let paragraphForPassword_empty = document.getElementById('paragraphForPassword_empty');
+     let paragraphForPassword_empty = document.getElementById('paragraphForPassword_empty');
     let paragraphForPassword_freeSpaces = document.getElementById('paragraphForPassword_freeSpaces');
     let paragraphForPassword_length = document.getElementById('paragraphForPassword_length');
     let paragraphForPassword_capitalAlphabets = document.getElementById('paragraphForPassword_capitalAlphabets');
@@ -103,84 +76,65 @@ let verifyPassword = () => {
     let paragraphForPassword_symbol = document.getElementById('paragraphForPassword_symbol');    
 
     if (inputForPassword.value === "") {
-        paragraphForPassword_empty.classList.add('dotRed');
-        paragraphForPassword_empty.classList.remove('dotGreen');
+        ChangingClass(paragraphForPassword_empty, 'dotRed', 'dotGreen');
     } else {
         paragraphForPassword_empty.style.display = 'none';
     }
 
     if (inputForPassword.value.includes(" ")) {
-        paragraphForPassword_freeSpaces.classList.remove('dotGreen');
-        paragraphForPassword_freeSpaces.classList.add('dotRed');
-    } 
-    else if(inputForPassword.value === ""){
-        paragraphForPassword_freeSpaces.classList.remove('dotGreen');
-        paragraphForPassword_freeSpaces.classList.add('dotRed');
-    }
-    else {
-        paragraphForPassword_freeSpaces.classList.remove('dotRed');
-        paragraphForPassword_freeSpaces.classList.add('dotGreen');
+        ChangingClass(paragraphForPassword_freeSpaces, 'dotRed', 'dotGreen');
+    } else if (inputForPassword.value === "") {
+        ChangingClass(paragraphForPassword_freeSpaces, 'dotRed', 'dotGreen');
+    } else {
+        ChangingClass(paragraphForPassword_freeSpaces, 'dotGreen', 'dotRed');
     }
 
     if (inputForPassword.value.length < 8 || inputForPassword.value.length > 16) {
-        paragraphForPassword_length.classList.remove('dotGreen');
-        paragraphForPassword_length.classList.add('dotRed');
+        ChangingClass(paragraphForPassword_length, 'dotRed', 'dotGreen');
     } else {
-        paragraphForPassword_length.classList.remove('dotRed');
-        paragraphForPassword_length.classList.add('dotGreen');
+        ChangingClass(paragraphForPassword_length, 'dotGreen', 'dotRed');
     }
 
     if (!/[A-Z]/.test(inputForPassword.value)) {
-        paragraphForPassword_capitalAlphabets.classList.remove('dotGreen');
-        paragraphForPassword_capitalAlphabets.classList.add('dotRed');
+        ChangingClass(paragraphForPassword_capitalAlphabets, 'dotRed', 'dotGreen');
     } else {
-        paragraphForPassword_capitalAlphabets.classList.remove('dotRed');
-        paragraphForPassword_capitalAlphabets.classList.add('dotGreen');
+        ChangingClass(paragraphForPassword_capitalAlphabets, 'dotGreen', 'dotRed');
     }
 
     if (!/[a-z]/.test(inputForPassword.value)) {
-        paragraphForPassword_lowerCaseAlphabets.classList.remove('dotGreen');
-        paragraphForPassword_lowerCaseAlphabets.classList.add('dotRed');
+        ChangingClass(paragraphForPassword_lowerCaseAlphabets, 'dotRed', 'dotGreen');
     } else {
-        paragraphForPassword_lowerCaseAlphabets.classList.remove('dotRed');
-        paragraphForPassword_lowerCaseAlphabets.classList.add('dotGreen');
+        ChangingClass(paragraphForPassword_lowerCaseAlphabets, 'dotGreen', 'dotRed');
     }
 
     if (!/\d/.test(inputForPassword.value)) {
-        paragraphForPassword_digit.classList.remove('dotGreen');
-        paragraphForPassword_digit.classList.add('dotRed');
+        ChangingClass(paragraphForPassword_digit, 'dotRed', 'dotGreen');
     } else {
-        paragraphForPassword_digit.classList.remove('dotRed');
-        paragraphForPassword_digit.classList.add('dotGreen');
+        ChangingClass(paragraphForPassword_digit, 'dotGreen', 'dotRed');
     }
 
     if (!/[*&^%$#@!]/.test(inputForPassword.value)) {
-        paragraphForPassword_symbol.classList.remove('dotGreen');
-        paragraphForPassword_symbol.classList.add('dotRed');
+        ChangingClass(paragraphForPassword_symbol, 'dotRed', 'dotGreen');
     } else {
-        paragraphForPassword_symbol.classList.remove('dotRed');
-        paragraphForPassword_symbol.classList.add('dotGreen');
+        ChangingClass(paragraphForPassword_symbol, 'dotGreen', 'dotRed');
     }
-}
+};
 
 let confirmPassword = () => {
-    
-let inputForConfirmPassword = document.getElementById('inputForConfirmPassword');
-let ConfirmPassword = document.getElementById('ConfirmPassword');
-    if (inputForConfirmPassword.value === "") {
-        ConfirmPassword.innerText = "Confirm your password";
-        ConfirmPassword.classList.add('dotRed');
-        ConfirmPassword.classList.remove('dotGreen');
-    } else if (inputForConfirmPassword.value !== inputForPassword.value) {
-        ConfirmPassword.innerText = 'Passwords do not match';
-        ConfirmPassword.classList.add('dotRed');
-        ConfirmPassword.classList.remove('dotGreen');
+    let inputForPassword = document.getElementById('inputForPassword');
+    let inputForconfirmPassword = document.getElementById('inputForConfirmPassword');
+    let confirmPassword = document.getElementById('confirmPassword');
+    if (inputForconfirmPassword.value === "") {
+        confirmPassword.innerText = "Confirm your password";
+        ChangingClass(confirmPassword, 'dotRed', 'dotGreen');
+    } else if (inputForconfirmPassword.value !== inputForPassword.value){
+        confirmPassword.innerText = 'Passwords do not match';
+        ChangingClass(confirmPassword, 'dotRed', 'dotGreen');
     } else {
-        ConfirmPassword.innerText = 'Password match';
-        ConfirmPassword.classList.add('dotGreen');
-        ConfirmPassword.classList.remove('dotRed');
+        confirmPassword.innerText = 'Password match';
+        ChangingClass(confirmPassword, 'dotGreen', 'dotRed');
     }
-}
+};
 
 // Form submitting
 let submit = document.getElementById("submit");
@@ -192,17 +146,16 @@ submit.addEventListener('click', (e) => {
     confirmPassword();
 });
 
-
 // Keypress for inputs
 let inputForUsername = document.getElementById('inputForUsername').addEventListener('input', () => {
-        verifyUserName();
-    });
-    let inputForEmail = document.getElementById('inputForEmail').addEventListener('input', () => {
-        verifyEmail();
-    });
-    let inputForPassword = document.getElementById('inputForPassword').addEventListener('input', () => {
-        verifyPassword();
-    });
-    let inputForConfirmPassword = document.getElementById('inputForConfirmPassword').addEventListener('input', () => {
-        confirmPassword();
-    });
+    verifyUserName();
+});
+let inputForEmail = document.getElementById('inputForEmail').addEventListener('input', () => {
+    verifyEmail();
+});
+let inputForPassword = document.getElementById('inputForPassword').addEventListener('input', () => {
+    verifyPassword();
+});
+let inputForconfirmPassword = document.getElementById('inputForConfirmPassword').addEventListener('input', () => {
+    confirmPassword();
+});
