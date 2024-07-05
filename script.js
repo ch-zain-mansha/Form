@@ -1,173 +1,161 @@
-//input
-let input1 = document.getElementById('i1');
-let input2 = document.getElementById('i2');
-let input3 = document.getElementById('i3');
-let input4 = document.getElementById('i4');
+// Function for changing colors
+const ChangingClass = (element, add, remove) => {
+    element.classList.add(add);
+    element.classList.remove(remove);
+};
 
-//para
-let paraForUserName = document.getElementById('p1');
-let paraForUserName2 = document.getElementById('p11');
-let paraForEmail = document.getElementById('p2');
-let paraForEmail2 = document.getElementById('p21');
-let paraForPassword = document.getElementById('p3');
-let paraForPassword2 = document.getElementById('p31');
-let paraForPassword3 = document.getElementById('p32');
-let paraForPassword4 = document.getElementById('p33');
-let paraForPassword5 = document.getElementById('p34');
-let paraForPassword6 = document.getElementById('p35');
-let paraForPassword7 = document.getElementById('p36');
-let paraForConPassword = document.getElementById('p4');
-let paraForConPassword2 = document.getElementById('p41');
-
-//functions
+// Functions
 let verifyUserName = () => {
-    let username = input1.value.trim();
+    let inputForUsername = document.getElementById('inputForUsername');
+    let paragraphForUsername_empty = document.getElementById('paragraphForUsername_empty');
+    let paragraphForUsername_capitalAlphabets = document.getElementById('paragraphForUsername_capitalAlphabets');
+    let paragraphForUsername_freeSpaces = document.getElementById('paragraphForUsername_freeSpaces');
+    let username = inputForUsername.value;
 
     if (username === "") {
-        paraForUserName.innerText = "Write your name";
-        paraForUserName.style.color = 'red';
-        paraForUserName.innerText = 'Username should not contain uppercase letters';
-        paraForUserName.style.color = 'red';
-        paraForUserName2.innerText = 'Spaces are not allowed';
-        paraForUserName2.style.color = 'red';
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotRed', 'dotGreen');
+    } else if (username.match(/[A-Z]/) && username.includes(" ")) {
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        paragraphForUsername_empty.innerText = 'Username is not correct';
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotRed', 'dotGreen');
+    } else if (username.match(/[A-Z]/)) {
+        paragraphForUsername_empty.innerText = 'Username is not correct';
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotGreen', 'dotRed');
+    } else if (username.match(/[-]/)) {
+        paragraphForUsername_empty.style.display = 'none';
+        paragraphForUsername_capitalAlphabets.innerHTML = 'Minus is not allowed';
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotRed', 'dotGreen');
+        paragraphForUsername_freeSpaces.style.display = 'none';
+    } else if (username.includes(" ")) {
+        paragraphForUsername_empty.innerText = 'Username is not correct';
+        ChangingClass(paragraphForUsername_empty, 'dotRed', 'dotGreen');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotGreen', 'dotRed');
+        ChangingClass(paragraphForUsername_freeSpaces, 'dotRed', 'dotGreen');
+    } else {
+        ChangingClass(paragraphForUsername_empty, 'dotGreen', 'dotRed');
+        ChangingClass(paragraphForUsername_capitalAlphabets, 'dotGreen', 'dotRed');
+        paragraphForUsername_empty.innerText = 'Username is correct';
+        ChangingClass(paragraphForUsername_empty, 'dotGreen', 'dotRed');
     }
-    else if (username.match(/[A-Z]/) && username.includes(" ")) {
-        paraForUserName.innerText = 'Username should not contain uppercase letters';
-        paraForUserName.style.color = 'red';
-        paraForUserName2.innerText = 'Spaces are not allowed';
-        paraForUserName2.style.color = 'red';
-    }
-    else if (username.match(/[A-Z]/)) {
-        paraForUserName.innerText = 'Username should not contain uppercase letters';
-        paraForUserName.style.color = 'red';
-        paraForUserName2.innerText = 'Spaces are not allowed';
-        paraForUserName2.style.color = 'green';
-    }
-    else if (username.includes(" ")) {
-        paraForUserName.innerText = 'Username should not contain uppercase letters';
-        paraForUserName.style.color = 'green';
-        paraForUserName2.innerText = 'Spaces are not allowed';
-        paraForUserName2.style.color = 'red';
-    }
-    else {
-        paraForUserName.innerText = 'Username should not contain uppercase letters';
-        paraForUserName.style.color = 'green';
-        paraForUserName2.innerText = 'Spaces are not allowed';
-        paraForUserName2.style.color = 'green';
-}
-}
-
+};
 
 let verifyEmail = () => {
-    paraForEmail.innerText = "";
-    paraForEmail.style.color = 'black';
-
-    const email = input2.value.trim();
+    let inputForEmail = document.getElementById('inputForEmail');
+    let paragraphForEmail_Empty = document.getElementById('paragraphForEmail_Empty');
+    let paragraphForEmail_validation = document.getElementById('paragraphForEmail_validation');
+    const email = inputForEmail.value;
     const emailCheck = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]/; 
-    
+
     if (email === "") {
-        paraForEmail.innerText += "Write your email\n";
-        paraForEmail.style.color = 'red';
+        ChangingClass(paragraphForEmail_Empty, 'dotRed', 'dotGreen');
     } else {
-        paraForEmail.innerText += "Write your email\n";
-        paraForEmail.style.color = 'green';
+        paragraphForEmail_Empty.style.display = 'none';
     }
 
     if (!emailCheck.test(email)) {
-        paraForEmail.innerText += 'Invalid Email Format\n';
-        paraForEmail.style.color = 'red';
+        ChangingClass(paragraphForEmail_validation, 'dotRed', 'dotGreen');
     } else {
-        paraForEmail.innerText += 'Invalid Email Format\n';
-        paraForEmail.style.color = 'green';
+        paragraphForEmail_validation.innerText = 'Email is valid';
+        ChangingClass(paragraphForEmail_validation, 'dotGreen', 'dotRed');
     }
-}
-
+};
 
 let verifyPassword = () => {
-    paraForPassword.innerText = "";
-    paraForPassword2.innerText = "";
-    paraForPassword3.innerText = "";
-    paraForPassword4.innerText = "";
-    paraForPassword5.innerText = "";
-    paraForPassword6.innerText = "";
+    let inputForPassword = document.getElementById('inputForPassword');
+     let paragraphForPassword_empty = document.getElementById('paragraphForPassword_empty');
+    let paragraphForPassword_freeSpaces = document.getElementById('paragraphForPassword_freeSpaces');
+    let paragraphForPassword_length = document.getElementById('paragraphForPassword_length');
+    let paragraphForPassword_capitalAlphabets = document.getElementById('paragraphForPassword_capitalAlphabets');
+    let paragraphForPassword_lowerCaseAlphabets = document.getElementById('paragraphForPassword_lowerCaseAlphabets');
+    let paragraphForPassword_digit = document.getElementById('paragraphForPassword_digit');
+    let paragraphForPassword_symbol = document.getElementById('paragraphForPassword_symbol');    
 
-    
-    if (input3.value.trim() === "") {
-        paraForPassword.innerText += "Write your password\n";
-        paraForPassword.style.color = 'red';
+    if (inputForPassword.value === "") {
+        ChangingClass(paragraphForPassword_empty, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword.innerText += "Write your password\n";
-        paraForPassword.style.color = 'green';
+        paragraphForPassword_empty.style.display = 'none';
     }
 
-    if (input3.value.includes(" ")) {
-        paraForPassword.innerText += 'Spaces are not allowed\n';
-        paraForPassword2.style.color = 'red';
+    if (inputForPassword.value.includes(" ")) {
+        ChangingClass(paragraphForPassword_freeSpaces, 'dotRed', 'dotGreen');
+    } else if (inputForPassword.value === "") {
+        ChangingClass(paragraphForPassword_freeSpaces, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword2.innerText += 'Spaces are not allowed\n';
-        paraForPassword2.style.color = 'green';
+        ChangingClass(paragraphForPassword_freeSpaces, 'dotGreen', 'dotRed');
     }
 
-    if (input3.value.length < 8 || input3.value.length > 16) {
-        paraForPassword3.innerText += 'Password must be between 8 and 16 characters\n';
-        paraForPassword3.style.color = 'red';
+    if (inputForPassword.value.length < 8 || inputForPassword.value.length > 16) {
+        ChangingClass(paragraphForPassword_length, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword3.innerText += 'Password must be between 8 and 16 characters\n';
-        paraForPassword3.style.color = 'green';
+        ChangingClass(paragraphForPassword_length, 'dotGreen', 'dotRed');
     }
 
-    if (!/[A-Z]/.test(input3.value)) {
-        paraForPassword4.innerText += 'Password must contain at least one uppercase letter\n';
-        paraForPassword4.style.color = 'red';
+    if (!/[A-Z]/.test(inputForPassword.value)) {
+        ChangingClass(paragraphForPassword_capitalAlphabets, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword4.innerText += 'Password must contain at least one uppercase letter\n';
-        paraForPassword4.style.color = 'green';
+        ChangingClass(paragraphForPassword_capitalAlphabets, 'dotGreen', 'dotRed');
     }
 
-    if (!/[a-z]/.test(input3.value)) {
-        paraForPassword5.innerText += 'Password must contain at least one lowercase letter\n';
-        paraForPassword5.style.color = 'red';
+    if (!/[a-z]/.test(inputForPassword.value)) {
+        ChangingClass(paragraphForPassword_lowerCaseAlphabets, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword5.innerText += 'Password must contain at least one lowercase letter\n';
-        paraForPassword5.style.color = 'green';
+        ChangingClass(paragraphForPassword_lowerCaseAlphabets, 'dotGreen', 'dotRed');
     }
 
-    if (!/\d/.test(input3.value)) {
-        paraForPassword6.innerText += 'Password must contain at least one digit\n';
-        paraForPassword6.style.color = 'red';
+    if (!/\d/.test(inputForPassword.value)) {
+        ChangingClass(paragraphForPassword_digit, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword6.innerText += 'Password must contain at least one digit\n';
-        paraForPassword6.style.color = 'green';
+        ChangingClass(paragraphForPassword_digit, 'dotGreen', 'dotRed');
     }
 
-    if (!/[*&^%$#@!]/.test(input3.value)) {
-        paraForPassword6.innerText += 'Password must contain at least one symbol\n';
-        paraForPassword6.style.color = 'red';
+    if (!/[*&^%$#@!]/.test(inputForPassword.value)) {
+        ChangingClass(paragraphForPassword_symbol, 'dotRed', 'dotGreen');
     } else {
-        paraForPassword6.innerText += 'Password must contain at least one symbol\n';
-        paraForPassword6.style.color = 'green';
+        ChangingClass(paragraphForPassword_symbol, 'dotGreen', 'dotRed');
     }
-}
+};
 
 let confirmPassword = () => {
-    if (input4.value.trim() === "") {
-        paraForConPassword.innerText = "Confirm your password";
-        paraForConPassword.style.color = 'red'
-    } else if (input4.value !== input3.value) {
-        paraForConPassword.innerText = 'Passwords do not match';
-        paraForConPassword.style.color = 'red'
+    let inputForPassword = document.getElementById('inputForPassword');
+    let inputForconfirmPassword = document.getElementById('inputForConfirmPassword');
+    let confirmPassword = document.getElementById('confirmPassword');
+    if (inputForconfirmPassword.value === "") {
+        confirmPassword.innerText = "Confirm your password";
+        ChangingClass(confirmPassword, 'dotRed', 'dotGreen');
+    } else if (inputForconfirmPassword.value !== inputForPassword.value){
+        confirmPassword.innerText = 'Passwords do not match';
+        ChangingClass(confirmPassword, 'dotRed', 'dotGreen');
     } else {
-        paraForConPassword.innerText = 'Password match';
-        paraForConPassword.style.color = 'green'
+        confirmPassword.innerText = 'Password match';
+        ChangingClass(confirmPassword, 'dotGreen', 'dotRed');
     }
-}
+};
 
 // Form submitting
-let submit = document.getElementById("sub");
+let submit = document.getElementById("submit");
 submit.addEventListener('click', (e) => {
     e.preventDefault();
     verifyUserName();
     verifyEmail();
     verifyPassword();
+    confirmPassword();
+});
+
+// Keypress for inputs
+let inputForUsername = document.getElementById('inputForUsername').addEventListener('input', () => {
+    verifyUserName();
+});
+let inputForEmail = document.getElementById('inputForEmail').addEventListener('input', () => {
+    verifyEmail();
+});
+let inputForPassword = document.getElementById('inputForPassword').addEventListener('input', () => {
+    verifyPassword();
+});
+let inputForconfirmPassword = document.getElementById('inputForConfirmPassword').addEventListener('input', () => {
     confirmPassword();
 });
